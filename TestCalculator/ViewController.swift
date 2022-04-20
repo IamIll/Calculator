@@ -10,17 +10,17 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var numberTextField: UITextField!
-    var initialValue: Double = 0
-    var endValue: Double = 0
+    var initialValue: Int = 0
+    var endValue: Int = 0
     var markRecognition = ""
+    var clearText = 0
     enum ArithmeticSigns {
-        case multiply (Double,Double)
-        case minus(Double,Double)
+        case multiply (Int,Int)
+        case minus(Int,Int)
         
-        func computation (sings: ArithmeticSigns) -> Double {
+        func computation () -> Int {
             
-            let initFirst = ArithmeticSigns.multiply(initialValue, endValue)
-            switch initFirst {
+            switch self {
             case .multiply(let rigth, let left):
                     return rigth * left
             case .minus(let rigth, let left):
@@ -30,30 +30,35 @@ class ViewController: UIViewController {
     }
     
     @IBAction func digitsNumber(_ sender: UIButton) {
-//        if numberTextField.text != String(computation(sings: .multiply(initialValue, endValue))) {
+        if clearText == 0 {
             numberTextField.text! += String(sender.tag)
-            initialValue = Double(numberTextField.text!)!
-//        } else {
-//            numberTextField.text = ""
-//            numberTextField.text! += String(sender.tag)
-//            return
-//        }
+            initialValue = Int(numberTextField.text!)!
+        } else {
+            numberTextField.text = ""
+            numberTextField.text! += String(sender.tag)
+            initialValue = Int(numberTextField.text!)!
+            clearText = 0
+            return
+        }
     }
     @IBAction func multiplication(_ sender: UIButton) {
-        if endValue == 0 {
+        
+        if clearText == 0 {
             endValue = initialValue
             numberTextField.text = ""
         } else {
-        numberTextField.text = String(computation(sings: .multiply(initialValue, endValue)))
+        //numberTextField.text = String(computation(sings: .multiply(initialValue, endValue)))
         }
         markRecognition = "multiply"
     }
     @IBAction func subtraction(_ sender: UIButton) {
-        if endValue == 0 {
-            endValue = initialValue
+        
+        if clearText == 0 {
             numberTextField.text = ""
+            endValue += initialValue
         } else {
-        numberTextField.text = String(computation(sings: .minus(initialValue, endValue)))
+            let subtraction = ArithmeticSigns.minus(initialValue, endValue)
+            numberTextField.text = String(subtraction.computation())
         }
         markRecognition = "minus"
     }
@@ -61,9 +66,15 @@ class ViewController: UIViewController {
     }
     @IBAction func equals(_ sender: UIButton) {
         if markRecognition == "multiply" {
-            numberTextField.text = String(computation(sings: .multiply(initialValue, endValue)))
+            let multiplication = ArithmeticSigns.multiply(initialValue, endValue)
+            numberTextField.text = String(multiplication.computation())
+            clearText = 1
         } else if markRecognition == "minus"{
-                numberTextField.text = String(computation(sings: .minus(initialValue, endValue)))
+            let subtraction = ArithmeticSigns.minus(initialValue, endValue)
+            numberTextField.text = String(subtraction.computation())
+            print(numberTextField.text)
+            endValue = subtraction.computation()
+            clearText = 1
             }
     }
     @IBAction func clear(_ sender: UIButton) {
