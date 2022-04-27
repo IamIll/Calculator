@@ -12,9 +12,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberTextField: UITextField!
     var rigthValue: Int? = nil
     var leftValue: Int? = nil
-    var sgn: Int? = nil
-    var markRecognition = ""
-    var switchDirection = true
     var needClearText = true
     var sign: ArithmeticSigns?
     enum ArithmeticSigns {
@@ -47,7 +44,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    func copy1 () {
+    func valueСalculation () {
         sign = sign?.update(left: leftValue, rigth: rigthValue)
         needClearText = false
         if sign?.computation != nil {
@@ -58,6 +55,7 @@ class ViewController: UIViewController {
         }
         
     }
+    @IBOutlet weak var labelSing: UILabel!
     @IBAction func digitsNumber(_ sender: UIButton) {
         if needClearText == false {
             numberTextField.text! = ""
@@ -72,20 +70,24 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func multiplication(_ sender: UIButton) {
-        copy1()
+        valueСalculation()
         sign = .multiply(leftValue, rigthValue)
+        labelSing.text = "*"
     }
     @IBAction func subtraction(_ sender: UIButton) {
-        copy1()
+        valueСalculation()
         sign = .minus(leftValue, rigthValue)
+        labelSing.text = "-"
     }
     @IBAction func addition(_ sender: UIButton) {
-        copy1()
+        valueСalculation()
         sign = .plus(leftValue, rigthValue)
+        labelSing.text = "+"
     }
     @IBAction func equals(_ sender: UIButton) {
-        copy1()
+        valueСalculation()
         sign = nil
+        labelSing.text = "="
     }
     @IBAction func clear(_ sender: UIButton) {
         rigthValue = nil
