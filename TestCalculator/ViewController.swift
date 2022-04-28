@@ -53,7 +53,6 @@ class ViewController: UIViewController {
             rigthValue = nil
             numberTextField.text = String(sgn)
         }
-        
     }
     @IBOutlet weak var labelSing: UILabel!
     @IBAction func digitsNumber(_ sender: UIButton) {
@@ -72,22 +71,23 @@ class ViewController: UIViewController {
     @IBAction func multiplication(_ sender: UIButton) {
         valueСalculation()
         sign = .multiply(leftValue, rigthValue)
-        labelSing.text = "*"
+        labelSing.text = sender.titleLabel?.text
+//        labelSing.text! = String(sen)
     }
     @IBAction func subtraction(_ sender: UIButton) {
         valueСalculation()
         sign = .minus(leftValue, rigthValue)
-        labelSing.text = "-"
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func addition(_ sender: UIButton) {
         valueСalculation()
         sign = .plus(leftValue, rigthValue)
-        labelSing.text = "+"
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func equals(_ sender: UIButton) {
         valueСalculation()
         sign = nil
-        labelSing.text = "="
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func clear(_ sender: UIButton) {
         rigthValue = nil
