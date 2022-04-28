@@ -10,68 +10,92 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var numberTextField: UITextField!
-    var initialValue: Double = 0
-    var endValue: Double = 0
-    var markRecognition = ""
+    var rigthValue: Int? = nil
+    var leftValue: Int? = nil
+    var needClearText = true
+    var sign: ArithmeticSigns?
     enum ArithmeticSigns {
-        case multiply (Double,Double)
-        case minus(Double,Double)
+        case multiply (Int?,Int?)
+        case minus(Int?,Int?)
+        case plus(Int?,Int?)
         
-        func computation (sings: ArithmeticSigns) -> Double {
+        func computation () -> Int? {
             
-            let initFirst = ArithmeticSigns.multiply(initialValue, endValue)
-            switch initFirst {
-            case .multiply(let rigth, let left):
-                    return rigth * left
-            case .minus(let rigth, let left):
-                    return left - rigth
+            switch self {
+            case .multiply(let left, let rigth):
+                guard let rhs = rigth, let lhs = left else {return nil}
+                return rhs * lhs
+            case .minus(let left, let rigth):
+                guard let rhs = rigth, let lhs = left else {return nil}
+                return lhs - rhs
+            case .plus(let left, let rigth):
+                guard let rhs = rigth, let lhs = left else {return nil}
+                return rhs + lhs
+            }
+        }
+        func update(left: Int?, rigth: Int?) -> ArithmeticSigns {
+            switch self {
+            case .multiply:
+                return .multiply(left, rigth)
+            case .minus:
+                return .minus(left, rigth)
+            case .plus:
+                return .plus(left, rigth)
             }
         }
     }
-    
+    func valueСalculation () {
+        sign = sign?.update(left: leftValue, rigth: rigthValue)
+        needClearText = false
+        if sign?.computation != nil {
+            guard let sgn = sign?.computation() else {return}
+            leftValue = sgn
+            rigthValue = nil
+            numberTextField.text = String(sgn)
+        }
+    }
+    @IBOutlet weak var labelSing: UILabel!
     @IBAction func digitsNumber(_ sender: UIButton) {
-//        if numberTextField.text != String(computation(sings: .multiply(initialValue, endValue))) {
+        if needClearText == false {
+            numberTextField.text! = ""
+            needClearText = true
+        }
+        if sign == nil {
             numberTextField.text! += String(sender.tag)
-            initialValue = Double(numberTextField.text!)!
-//        } else {
-//            numberTextField.text = ""
-//            numberTextField.text! += String(sender.tag)
-//            return
-//        }
+            leftValue = Int(numberTextField.text!)!
+        } else {
+            numberTextField.text! += String(sender.tag)
+            rigthValue = Int(numberTextField.text!)!
+        }
     }
     @IBAction func multiplication(_ sender: UIButton) {
-        if endValue == 0 {
-            endValue = initialValue
-            numberTextField.text = ""
-        } else {
-        numberTextField.text = String(computation(sings: .multiply(initialValue, endValue)))
-        }
-        markRecognition = "multiply"
+        valueСalculation()
+        sign = .multiply(leftValue, rigthValue)
+        labelSing.text = sender.titleLabel?.text
+//        labelSing.text! = String(sen)
     }
     @IBAction func subtraction(_ sender: UIButton) {
-        if endValue == 0 {
-            endValue = initialValue
-            numberTextField.text = ""
-        } else {
-        numberTextField.text = String(computation(sings: .minus(initialValue, endValue)))
-        }
-        markRecognition = "minus"
+        valueСalculation()
+        sign = .minus(leftValue, rigthValue)
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func addition(_ sender: UIButton) {
+        valueСalculation()
+        sign = .plus(leftValue, rigthValue)
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func equals(_ sender: UIButton) {
-        if markRecognition == "multiply" {
-            numberTextField.text = String(computation(sings: .multiply(initialValue, endValue)))
-        } else if markRecognition == "minus"{
-                numberTextField.text = String(computation(sings: .minus(initialValue, endValue)))
-            }
+        valueСalculation()
+        sign = nil
+        labelSing.text = sender.titleLabel?.text
     }
     @IBAction func clear(_ sender: UIButton) {
-        endValue = 0
-        initialValue = 0
+        rigthValue = nil
+        leftValue = nil
+        sign = nil
         numberTextField.text = ""
+        needClearText = true
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

@@ -25,7 +25,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Rii-2s-ccH">
-                                <rect key="frame" x="16" y="190" width="382" height="272"/>
+                                <rect key="frame" x="16" y="234" width="382" height="272"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="EFL-qk-T1M">
                                         <rect key="frame" x="0.0" y="0.0" width="83.5" height="272"/>
@@ -207,7 +207,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5HO-Yn-Wxz">
-                                <rect key="frame" x="16" y="478" width="183" height="80"/>
+                                <rect key="frame" x="16" y="522" width="183" height="80"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="lSL-WO-k08"/>
@@ -220,7 +220,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHM-ZL-7JY">
-                                <rect key="frame" x="314.5" y="478" width="83.5" height="80"/>
+                                <rect key="frame" x="314.5" y="522" width="83.5" height="80"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="HzJ-OL-HBI"/>
@@ -234,7 +234,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2w-CJ-gFa">
-                                <rect key="frame" x="215" y="478" width="83.5" height="80"/>
+                                <rect key="frame" x="215" y="522" width="83.5" height="80"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="LUX-oz-TuK"/>
@@ -247,6 +247,12 @@
                                     <action selector="clear:" destination="D2u-rK-z3N" eventType="touchUpInside" id="5uN-en-W2v"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DnK-S2-bVt">
+                                <rect key="frame" x="186" y="184" width="42" height="40"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aTf-HB-Z56"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -261,14 +267,19 @@
                             <constraint firstItem="5HO-Yn-Wxz" firstAttribute="leading" secondItem="sua-R5-yCo" secondAttribute="leading" id="U0L-d4-Zfb"/>
                             <constraint firstItem="aTf-HB-Z56" firstAttribute="trailing" secondItem="0pe-to-aBo" secondAttribute="trailing" constant="16" id="Uc1-lL-VjH"/>
                             <constraint firstItem="aTf-HB-Z56" firstAttribute="trailing" secondItem="Rii-2s-ccH" secondAttribute="trailing" constant="16" id="Wt8-hM-4wi"/>
-                            <constraint firstItem="Rii-2s-ccH" firstAttribute="top" secondItem="0pe-to-aBo" secondAttribute="bottom" constant="16" id="a3F-hs-O5H"/>
                             <constraint firstItem="eHM-ZL-7JY" firstAttribute="top" secondItem="Rii-2s-ccH" secondAttribute="bottom" constant="16" id="bgw-aI-KTo"/>
+                            <constraint firstItem="Rii-2s-ccH" firstAttribute="top" secondItem="DnK-S2-bVt" secondAttribute="bottom" constant="10" id="bld-1A-uYb"/>
                             <constraint firstItem="Rii-2s-ccH" firstAttribute="leading" secondItem="aTf-HB-Z56" secondAttribute="leading" constant="16" id="fax-eD-SwF"/>
+                            <constraint firstItem="aTf-HB-Z56" firstAttribute="trailing" secondItem="DnK-S2-bVt" secondAttribute="trailing" constant="186" id="hzg-8w-HXK"/>
                             <constraint firstItem="Y2w-CJ-gFa" firstAttribute="leading" secondItem="5HO-Yn-Wxz" secondAttribute="trailing" constant="16" id="j3B-2h-Gxg"/>
+                            <constraint firstItem="Rii-2s-ccH" firstAttribute="top" secondItem="0pe-to-aBo" secondAttribute="bottom" constant="60" id="lPS-Zj-gMq"/>
                             <constraint firstItem="5HO-Yn-Wxz" firstAttribute="top" secondItem="Rii-2s-ccH" secondAttribute="bottom" constant="16" id="q5z-88-Ooo"/>
+                            <constraint firstItem="DnK-S2-bVt" firstAttribute="leading" secondItem="aTf-HB-Z56" secondAttribute="leading" constant="186" id="uBN-fW-iHo"/>
+                            <constraint firstItem="DnK-S2-bVt" firstAttribute="top" secondItem="0pe-to-aBo" secondAttribute="bottom" constant="10" id="ykd-W5-jXN"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="labelSing" destination="DnK-S2-bVt" id="B5n-TP-81y"/>
                         <outlet property="numberTextField" destination="0pe-to-aBo" id="1aN-o6-m1x"/>
                     </connections>
                 </viewController>
